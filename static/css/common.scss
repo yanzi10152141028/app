@@ -1,0 +1,45 @@
+
+    .page {
+        width:100%;
+        background-color: #ffffff;
+        font-size:16px;
+        touch-action: none;
+        .page__bd {
+          width: 100%;
+          padding-top: 80px;
+          padding-bottom: 5px;
+          background-color: #f51d39;
+          position: fixed;
+          top: 0;
+          left: 0;
+          .page_title {
+            color: #fff;
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            vertical-align: middle;
+            width:20%;
+            padding-left:2%;
+          }
+        .weui-navbar__item{
+           font-size: 18px;
+            }
+        .weui-bar__item_on{
+              color: red;
+            }
+        .weui-icon-search_in-box{
+            top:9px;
+          }
+        .search-bar{
+            width: 75%;
+          }
+        .weui-search-bar__form {
+            width: 100%;
+          }
+          .search-bar {
+            display: inline-block;
+            vertical-align: middle;
+          }
+        }
+       
+      }

@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/entrance/main",
+    "pages/home/main",
+    "pages/video/main",
+    "pages/headline/main",
+    "pages/person/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationStyle": "custom",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999",
+    "backgroundColor": "#fafafa",
+    "selectedColor": "#d81e06",
+    "borderStyle": "black",
+    "list": [{
+      "text": "首页",
+      "pagePath": "pages/home/main",
+      "iconPath": "static/tabs/icon-home.png",
+      "selectedIconPath": "static/tabs/home-active.png"
+    }, {
+      "text": "西瓜视频",
+      "pagePath": "pages/video/main",
+      "iconPath": "static/tabs/icon-video.png",
+      "selectedIconPath": "static/tabs/video-active.png"
+    },{
+      "text": "微头条",
+      "pagePath": "pages/headline/main",
+      "iconPath": "static/tabs/icon-wx.png",
+      "selectedIconPath": "static/tabs/wx-active.png"
+    },{
+      "text": "个人中心",
+      "pagePath": "pages/person/main",
+      "iconPath": "static/tabs/icon-person.png",
+      "selectedIconPath": "static/tabs/person-active.png"
+    }],
+    "position": "bottom"
+  }
+}
