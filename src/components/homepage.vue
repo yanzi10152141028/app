@@ -1,5 +1,5 @@
 <template>
-    <div class="home_page">
+    <div class="home_page" id="home_page">
         <ul>
             <li v-for="(item,index) in list" :key="index">
                 <div class="typeset_one">
@@ -25,12 +25,28 @@ export default {
     return{
       baseUrl:config,
       list:[],
-      imgList:[]
+      imgList:[],
+      page:1,
+      total_page:0//总页码
     }
   },
   onLoad(){
      this.list.splice(0,this.list.length);
      this.getInfo();
+  },
+  // 上拉触底事件
+  onReachBottom(){
+     if(this.page>this.total_page){
+        console.log("数据加载完毕！")
+     }else{
+       this.page = this.page+1;
+       this.getInfo();
+     }
+  },
+  // 下拉刷新
+  onPullDownRefresh(){
+    this.page =1;
+    this.getInfo();
   },
   methods:{
     //获取信息
@@ -43,26 +59,33 @@ export default {
         }).
         then(function(result){
           if(result.status == 200){
-            for(var i=0;i<result.data.length;i++){
-              var title = result.data[i].title;
-              var username = result.data[i].username;
-              var addDate = result.data[i].addDate.split("T")[0];
-              var imgs = result.data[i].img;
-              // if(imgs.indexOf(",") > -1){
-              //    imgs= imgs.split(",");
-              //    for(var i=0;i<imgs.length;i++){
-              //        var   img = imgs[i];
-              //        self.imgList.push(self.baseUrl+img)
-              //        console.log("1"+img);
-              //    }
+            // 关闭刷新
+            wx.stopPullDownRefresh();
+              // if(self.page>1){
+                for(var i=0;i<result.data.length;i++){
+                    var title = result.data[i].title;
+                    var username = result.data[i].username;
+                    var addDate = result.data[i].addDate.split("T")[0];
+                    var imgs = result.data[i].img;
+                    // if(imgs.indexOf(",") > -1){
+                    //    imgs= imgs.split(",");
+                    //    for(var i=0;i<imgs.length;i++){
+                    //        var   img = imgs[i];
+                    //        self.imgList.push(self.baseUrl+img)
+                    //        console.log("1"+img);
+                    //    }
+                    // }
+                    self.list.push({
+                      title:title,
+                      username:username,
+                      addDate:addDate,
+                      img:self.baseUrl+imgs
+                    })
+                  }
+              // }else{
+              //    self.list = result.data;
               // }
-              self.list.push({
-                title:title,
-                username:username,
-                addDate:addDate,
-                img:self.baseUrl+imgs
-              })
-            }
+              // self.total_page = result.data.length/5;
           }
         })
      }

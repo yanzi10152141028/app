@@ -13,24 +13,26 @@
           </div>
         </div>
         <div class="weui-tab__panel">
-          <div class="weui-tab__content" :hidden="activeIndex != 0">
-              <home-info type="推荐" ref="childMethod"></home-info>
-          </div>
-          <div class="weui-tab__content" :hidden="activeIndex != 1">
-             <home-info type="生活" ref="childMethod"></home-info>
-          </div>
-          <div class="weui-tab__content" :hidden="activeIndex != 2">
-             <home-info type="娱乐" ref="childMethod"></home-info>
-          </div>
-          <div class="weui-tab__content" :hidden="activeIndex != 3">
-             <home-info type="搞笑" ref="childMethod"></home-info>
-          </div>
-          <div class="weui-tab__content" :hidden="activeIndex != 4">
-           <home-info type="游戏" ref="childMethod"></home-info>
-          </div>
-          <div class="weui-tab__content" :hidden="activeIndex != 5">
-             <home-info type="体育" ref="childMethod"></home-info>
-          </div>
+            <div  class="static-div row-center">
+                <div class="weui-tab__content" :hidden="activeIndex != 0">
+                    <home-info type="推荐" ref="childMethod"></home-info>
+                </div>
+                <div class="weui-tab__content" :hidden="activeIndex != 1">
+                  <home-info type="生活" ref="childMethod"></home-info>
+                </div>
+                <div class="weui-tab__content" :hidden="activeIndex != 2">
+                  <home-info type="娱乐" ref="childMethod"></home-info>
+                </div>
+                <div class="weui-tab__content" :hidden="activeIndex != 3">
+                  <home-info type="搞笑" ref="childMethod"></home-info>
+                </div>
+                <div class="weui-tab__content" :hidden="activeIndex != 4">
+                <home-info type="游戏" ref="childMethod"></home-info>
+                </div>
+                <div class="weui-tab__content" :hidden="activeIndex != 5">
+                  <home-info type="体育" ref="childMethod"></home-info>
+                </div>
+            </div>
         </div>
      </div> 
   </div>  
@@ -54,11 +56,21 @@ export default {
   mounted() {
     this.getMenuList();
   },
+  watch: {
+    scrollTop(curVal, oldVal) {
+      if (this.scrollTop < -100) {
+        this.init();
+        this.loadShow = true;
+      }
+    }
+  },
   methods: {
     //点击菜单栏
     tabClick(e) {
+      console.log(e);
       this.activeIndex = e.currentTarget.id;
     },
+    //获取菜单列表
     getMenuList(e) {
       var self = this;
       this.$http
@@ -70,6 +82,9 @@ export default {
           self.tabs = result.data;
         });
     },
+    getScroll(e) {
+      this.scrollTop = e.target.scrollTop;
+    },
     // 下拉刷新
     onPullDownRefresh: function() {
       wx.showNavigationBarLoading(); //在标题栏中显示加载
@@ -79,15 +94,15 @@ export default {
         wx.hideNavigationBarLoading(); //完成停止加载
         wx.stopPullDownRefresh(); //停止下拉刷新
       }, 1500);
-    }
+    },
+    //上拉加载
+    onReachBottom: function() {}
   }
 };
 </script>
 <style lang="scss">
 page {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
   .weui-tab {
     width: 100%;
     position: fixed;
